@@ -1,0 +1,70 @@
+linkedin_scraping_task:
+  description: >
+    Analyze the user's own LinkedIn posts to understand their authentic writing style, voice, and content patterns.
+    Examine their past posts to identify what makes their content engaging and resonates with their audience.
+    Study their storytelling patterns, content structure, use of personal experiences, professional insights, and engagement strategies.
+    Identify their unique voice characteristics including tone, sentence structure, use of questions, lists, emojis, and personal anecdotes.
+    Analyze which of their posts performed well and extract the successful elements they should maintain.
+    Focus on understanding their authentic style rather than trying to copy viral trends.
+  expected_output: >
+    A comprehensive personal writing style analysis containing:
+    - 3-5 of the user's own LinkedIn posts with engagement metrics
+    - PERSONAL STYLE ANALYSIS: Their unique voice, tone, and writing characteristics
+    - CONTENT PATTERNS: How they structure posts, use of personal stories, professional insights
+    - ENGAGEMENT ANALYSIS: Which of their posts performed well and why
+    - AUTHENTIC VOICE ELEMENTS: Their natural storytelling style, use of questions, lists, emojis
+    - AUDIENCE RESONANCE: What content themes and approaches work best for their audience
+    - STYLE RECOMMENDATIONS: How to maintain their authentic voice while creating new content based on their prompt
+    - Personal content themes and successful formats they should continue using
+  agent: linkedin_scraper
+
+web_research_task:
+  description: >
+    Analyze the user's content prompt: "{topic}" and conduct comprehensive web research to gather current information, trends, statistics, and news related to the topics and themes mentioned.
+    Look for recent developments, expert opinions, case studies, and data that can support compelling content creation based on what the user wants to write about.
+    Focus on information from {current_year} to ensure maximum relevance.
+  expected_output: >
+    A detailed research report containing:
+    - Latest trends and developments related to the user's prompt
+    - Key statistics and data points relevant to their content idea
+    - Expert quotes and opinions that support their narrative
+    - Recent news and announcements in the relevant field
+    - Case studies or success stories that align with their prompt
+    - Credible sources and references
+  agent: web_researcher
+
+content_creation_task:
+  description: >
+    Using the personal writing style analysis from the user's own posts and current data from web research, create an authentic LinkedIn post based on the user's prompt: "{topic}".
+    Maintain the user's unique voice, tone, and content patterns while incorporating relevant research data.
+    Use their preferred storytelling style, content structure, and engagement approaches that have worked well for them.
+    Blend their authentic voice with the content they want to create, making it feel natural and genuine.
+    Incorporate their successful content elements while addressing what they specifically asked for in their prompt.
+  expected_output: >
+    An authentic LinkedIn post that includes:
+    - AUTHENTIC VOICE: Written in the user's natural tone and style based on their post analysis
+    - PERSONAL STRUCTURE: Following their preferred content organization and storytelling patterns
+    - FAMILIAR ELEMENTS: Using their successful approaches (questions, lists, emojis, personal anecdotes as appropriate)
+    - PROMPT FULFILLMENT: Directly addressing what the user asked for in their content prompt
+    - RESEARCH DATA: Incorporating relevant statistics and insights from web research in their natural style
+    - NATURAL CTA: Engagement prompt that matches their typical interaction style
+    - CONSISTENT THEMES: Aligning with their established content themes and professional focus
+    - AUDIENCE ALIGNMENT: Content that resonates with their existing audience while attracting new engagement
+  agent: linkedin_influencer
+  context: [linkedin_scraping_task, web_research_task]
+
+humanization_task:
+  description: >
+    Transform the LinkedIn post using this specific writing style:
+    FOLLOW THIS WRITING STYLE: Use clear, simple language. Be spartan and informative. Use short, impactful sentences. Use active voice, avoid passive voice. Focus on practical, actionable insights. Use bullet point lists in social media posts. Use data and examples to support claims when possible. Use "you" and "your" to directly address the reader. AVOID using em dashes anywhere in your response. Use only commas, periods, or other standard punctuation. If you need to connect ideas, use a period, but never an em dash. AVOID constructions like "not just this, but also this". AVOID metaphors and clichés. AVOID generalizations. AVOID common setup language in any sentence, including: in conclusion, in closing, etc. AVOID output warnings or notes. AVOID unnecessary adjectives and adverbs. AVOID hashtags. AVOID semicolons. AVOID markdown. AVOID asterisks. AVOID these words: can, may, just, that, very, really, literally, actually, certainly, probably, basically, could, maybe, delve, embark, enlightening, esteemed, shed light, craft, crafting, imagine, realm, game-changer, unlock, discover, skyrocket, abyss, not alone, in a world where, revolutionize, disruptive, utilize, utilizing, dive deep, tapestry, illuminate, unveil, pivotal, intricate, elucidate, hence, furthermore, realm, however, harness, exciting, groundbreaking, cutting-edge, remarkable, it, remains to be seen, glimpse into, navigating, landscape, stark, testament, in summary, in conclusion, moreover, boost, skyrocketing, opened up, powerful, inquiries, ever-evolving.
+  expected_output: >
+    A final LinkedIn post that:
+    - Uses clear, simple language with short sentences
+    - Addresses readers with "you" and "your"
+    - Uses bullet points and includes data
+    - Avoids all banned words and punctuation
+    - Has no hashtags, markdown, or asterisks
+    - Focuses on practical insights
+    - Uses active voice throughout
+  agent: humanizer
+  context: [content_creation_task]
